@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(https://wallpapers.com/images/featured/star-wars-plzcoaffexgf4h81.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow-y: scroll;
+}
+
+.card-img {
+    height: 300px;
+    object-fit: contain;
+}
+
+.card {
+    width: 320px !important;
+    background-color: rgba(0, 0, 0, 0.903) !important;
+    text-align: center;
+    border: 5px solid rgb(170, 255, 0) !important;
+    color: wheat !important;
+    border-radius: 20px !important;
+}
+
+.card-body {
+    border-top: 5px solid rgb(169, 228, 51) !important;
+}
