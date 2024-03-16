@@ -124,6 +124,9 @@ const renderButton = document.getElementById("showCharacters");
 let isRendering = true;
 renderButton.style.backgroundColor = "#abff2e";
 
+
+
+
 function showCharacters() {
     if (isRendering) {
         charactersCard.innerHTML = characters.map(function(character) {
@@ -147,5 +150,24 @@ function showCharacters() {
         charactersCard.innerHTML = "";
         isRendering = true;
     }
+}
 
+let homeworldsRaw = characters.map(function(homeworldItem) {
+    return homeworldItem.homeworld !== null && homeworldItem.homeworld !== undefined ? homeworldItem.homeworld.toLowerCase() : "other"; // ?? nullish operator does not work my compiler, so i create this method. 
+});
+
+let uniqueHomeworlds = [...new Set(homeworldsRaw)]; //Unique array
+const homeworlds = uniqueHomeworlds;
+console.log(homeworlds);
+
+const filterHomeworlds = document.getElementById("filterButtons");
+for (let i = 0; i < homeworlds.length; i++) {
+    filterHomeworlds.innerHTML += `
+    <div class="form-check col-lg-1 col-md-3 col-sm-4 col-6 col justify-content-center d-flex">
+  <input class="form-check-input" type="radio" name="homeworld" id="${homeworlds[i]}-world">
+  <label class="form-check-label ms-1" for="${homeworlds[i]}-world">
+    ${homeworlds[i]}
+  </label>
+</div>
+    `
 }
