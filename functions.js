@@ -109,7 +109,8 @@ const characters = [{
     {
         "id": 20,
         "name": "Yoda",
-        "pic": "https://vignette.wikia.nocookie.net/starwars/images/d/d6/Yoda_SWSB.png"
+        "pic": "https://vignette.wikia.nocookie.net/starwars/images/d/d6/Yoda_SWSB.png",
+        "homeworld": "other"
     },
     {
         "id": 21,
@@ -120,6 +121,7 @@ const characters = [{
 ];
 
 const charactersCard = document.getElementById("charactersCard");
+charactersCard.innerHTML = "";
 const renderButton = document.getElementById("showCharacters");
 let isRendering = true;
 renderButton.style.backgroundColor = "#abff2e";
@@ -128,15 +130,15 @@ renderButton.style.backgroundColor = "#abff2e";
 
 
 function showCharacters() {
-    if (isRendering) {
+    if (isRendering && charactersCard.innerHTML == "") {
         charactersCard.innerHTML = characters.map(function(character) {
             return `<div class="col-lg-3 col-md-4 col-sm-6 col-12 m-3 d-flex justify-content-center align-items-center">
             <div class="card ">
                 <img class="card-img" src="${character.pic}">
                 <div class="card-body">
-                    <p class="card-text fw-bold fs-5">${character.id|| 'unknown'}</p>
+                    <p class="card-text fw-bold fs-5">${character.id}</p>
                     <h5 class="card-title">${character.name}</h5>
-                    <p class="card-text">${character.homeworld || 'unknown'}</p>
+                    <p class="card-text">${character.homeworld || "other"}</p>
                 </div>
             </div>
         </div>`;
@@ -156,18 +158,53 @@ let homeworldsRaw = characters.map(function(homeworldItem) {
     return homeworldItem.homeworld !== null && homeworldItem.homeworld !== undefined ? homeworldItem.homeworld.toLowerCase() : "other"; // ?? nullish operator does not work my compiler, so i create this method. 
 });
 
-let uniqueHomeworlds = [...new Set(homeworldsRaw)]; //Unique array
+let uniqueHomeworlds = [...new Set(homeworldsRaw)];
 const homeworlds = uniqueHomeworlds;
 console.log(homeworlds);
 
-const filterHomeworlds = document.getElementById("filterButtons");
+const filterHomeworldsButtons = document.getElementById("filterButtons");
 for (let i = 0; i < homeworlds.length; i++) {
-    filterHomeworlds.innerHTML += `
+    filterHomeworldsButtons.innerHTML += `
     <div class="form-check col-lg-1 col-md-3 col-sm-4 col-6 col justify-content-center d-flex">
-  <input class="form-check-input" type="radio" name="homeworld" id="${homeworlds[i]}-world">
+  <input class="form-check-input" type="radio" name="homeworld"  value="${homeworlds[i]}" id="${homeworlds[i]}-world" >
   <label class="form-check-label ms-1" for="${homeworlds[i]}-world">
     ${homeworlds[i]}
   </label>
 </div>
     `
 }
+
+const filteredHomeworld = document.querySelectorAll(".form-check-input");
+
+filteredHomeworld.forEach(function(filtered) {
+    filtered.addEventListener("click", function(select) {
+        let selected = select.target.value;
+        console.log(selected);
+
+        if (selected !== null) {
+            let filteredItems = characters.filter(function(filteredH) {
+                return filteredH.homeworld && filteredH.homeworld.toLowerCase() === selected;
+            });
+            console.log(filteredItems);
+            if (charactersCard.innerHTML !== "") {
+                charactersCard.innerHTML = filteredItems.map(function(filteredHW) {
+                    return `<div class="col-lg-3 col-md-4 col-sm-6 col-12 m-3 d-flex justify-content-center align-items-center">
+                        <div class="card ">
+                            <img class="card-img" src="${filteredHW.pic}">
+                            <div class="card-body">
+                                <p class="card-text fw-bold fs-5">${filteredHW.id|| 'unknown'}</p>
+                                <h5 class="card-title">${filteredHW.name}</h5>
+                                <p class="card-text">${filteredHW.homeworld || 'unknown'}</p>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            } else {
+                alert("First, you must click 'Show Characters' button, after you can filter!");
+            }
+
+
+        }
+
+    });
+});
