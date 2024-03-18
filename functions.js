@@ -109,8 +109,7 @@ const characters = [{
     {
         "id": 20,
         "name": "Yoda",
-        "pic": "https://vignette.wikia.nocookie.net/starwars/images/d/d6/Yoda_SWSB.png",
-        "homeworld": "other"
+        "pic": "https://vignette.wikia.nocookie.net/starwars/images/d/d6/Yoda_SWSB.png"
     },
     {
         "id": 21,
@@ -154,6 +153,14 @@ function showCharacters() {
     }
 }
 
+for (let i = 0; i < characters.length; i++) {
+    const character = characters[i];
+    if (!character.homeworld) {
+        // Yoda'nın homeworld'ünü ekliyoruz
+        character.homeworld = "other";
+    }
+}
+
 let homeworldsRaw = characters.map(function(homeworldItem) {
     return homeworldItem.homeworld !== null && homeworldItem.homeworld !== undefined ? homeworldItem.homeworld.toLowerCase() : "other"; // ?? nullish operator does not work my compiler, so i create this method. 
 });
@@ -161,6 +168,8 @@ let homeworldsRaw = characters.map(function(homeworldItem) {
 let uniqueHomeworlds = [...new Set(homeworldsRaw)];
 const homeworlds = uniqueHomeworlds;
 console.log(homeworlds);
+
+
 
 const filterHomeworldsButtons = document.getElementById("filterButtons");
 for (let i = 0; i < homeworlds.length; i++) {
