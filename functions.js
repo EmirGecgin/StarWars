@@ -174,7 +174,7 @@ console.log(homeworlds);
 const filterHomeworldsButtons = document.getElementById("filterButtons");
 for (let i = 0; i < homeworlds.length; i++) {
     filterHomeworldsButtons.innerHTML += `
-    <div class="form-check col-lg-1 col-md-3 col-sm-4 col-6 col justify-content-center d-flex">
+    <div class="form-check col-lg-1 col-md-3 col-sm-4 col-6 col text-center justify-content-center d-flex mx-2">
   <input class="form-check-input" type="radio" name="homeworld"  value="${homeworlds[i]}" id="${homeworlds[i]}-world" >
   <label class="form-check-label ms-1" for="${homeworlds[i]}-world">
     ${homeworlds[i]}

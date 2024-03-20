@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -29,7 +30,7 @@ body {
 }
 
 .card-body {
-    border-top: 5px solid rgb(169, 228, 51) !important;
+    border-top: 3px solid rgb(169, 228, 51) !important;
 }
 
 .filter-section {
@@ -38,4 +39,13 @@ body {
     margin: 5px;
     border: 3px solid rgb(170, 255, 0);
     border-radius: 20px;
+}
+
+button {
+    transition: transform 250ms !important;
+}
+
+button:hover,
+button:focus-visible {
+    transform: translateY(-8px) !important;
 }
